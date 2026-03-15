@@ -1,0 +1,76 @@
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure with dark background
+fig, ax = plt.subplots(figsize=(12, 8), facecolor='#0a0a0a')
+ax.set_facecolor('#0a0a0a')
+
+# The text to fill with
+text = "i missyousomuch kakaii"
+
+# Create a grid of text
+np.random.seed(42)
+x_positions = np.linspace(0.05, 0.95, 25)
+y_positions = np.linspace(0.05, 0.95, 15)
+
+# Color palette - warm/caring tones
+colors = ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43', '#ee5a6f']
+
+for i, y in enumerate(y_positions):
+    for j, x in enumerate(x_positions):
+        # Vary the text slightly with different cases and spacing
+        display_text = text
+        
+        # Random variations for artistic effect
+        if np.random.random() > 0.7:
+            display_text = text.upper()
+        elif np.random.random() > 0.5:
+            display_text = text.title()
+        
+        # Vary opacity and size based on position for depth
+        alpha = 0.3 + 0.7 * np.random.random()
+        size = 6 + 8 * np.random.random()
+        
+        # Color variation
+        color = colors[(i + j) % len(colors)]
+        
+        # Add glow effect by plotting multiple times with different alphas
+        for glow in range(3):
+            ax.text(x, y, display_text, 
+                   fontsize=size + glow*2, 
+                   color=color,
+                   alpha=alpha/(glow+1)*0.3,
+                   ha='center', va='center',
+                   fontfamily='monospace',
+                   fontweight='bold',
+                   rotation=np.random.randint(-10, 10))
+        
+        # Main text
+        ax.text(x, y, display_text, 
+               fontsize=size, 
+               color=color,
+               alpha=alpha,
+               ha='center', va='center',
+               fontfamily='monospace',
+               fontweight='bold',
+               rotation=np.random.randint(-5, 5))
+
+# Add central prominent text
+ax.text(0.5, 0.5, "I MISS YOU SO MUCH KAKAII", 
+       fontsize=32, 
+       color='#ffffff',
+       alpha=0.9,
+       ha='center', va='center',
+       fontfamily='serif',
+       fontweight='bold',
+       bbox=dict(boxstyle='round,pad=0.5', facecolor='#1a1a1a', edgecolor='#ff6b6b', linewidth=3, alpha=0.8))
+
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+ax.axis('off')
+
+plt.tight_layout()
+plt.savefig('/mnt/kimi/output/text_fill_art.png', dpi=150, bbox_inches='tight', facecolor='#0a0a0a')
+plt.show()
+print("Text fill art created!")
